@@ -1,0 +1,10 @@
+{
+	"kpComments":[
+	{"text" : "Incorrect PO price", "selected" : false},
+	{"text" : "Invoice incorrect-Supplier to issue Cr/DN", "selected" : false},
+	{"text" : "DN/CN received", "selected" : false},
+	{"text" : "Incorrect Consigned Info Record", "selected" : false}	
+	],
+	"batch":"",
+	"selRow":""
+}

@@ -1,0 +1,29 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Dialog
+		class="mainDialog">
+		<customHeader>
+			<Bar>
+				<contentMiddle><Title text="Dashboard Parameters"></Title></contentMiddle>
+				<contentRight><core:Icon src="sap-icon://decline" press=".closeDialog" class="closeDialog"/></contentRight>
+			</Bar>
+		</customHeader>
+		<buttons>
+			<Button text="Submit" press=".onFilterSubmit">
+				<customData>
+					<core:CustomData
+									key="isFromDialog"
+									value="true" />
+				</customData>
+			</Button>
+		</buttons>
+		<content>
+			<VBox width="100%" alignItems="Stretch" class="dialogFilterBox">
+				<items>
+					<core:Fragment fragmentName="com.jabil.fi.fragment.MainFilter" type="XML" />
+				</items>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

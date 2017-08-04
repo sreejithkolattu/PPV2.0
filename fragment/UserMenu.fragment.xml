@@ -1,0 +1,11 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core"
+	xmlns:u="sap.ui.unified">
+		<u:Menu  
+			itemSelect="handleMenuItemPress">
+			<u:MenuItem 
+				text="App Info" 
+				icon="sap-icon://message-information"/>
+		</u:Menu>
+</core:FragmentDefinition>

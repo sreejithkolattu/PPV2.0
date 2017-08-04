@@ -1,0 +1,49 @@
+<!DOCTYPE HTML>
+<html>
+<!-- Copyright (c) 2014 SAP AG, All Rights Reserved -->
+
+
+<head>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<META HTTP-EQUIV="Expires" CONTENT="0">
+<META HTTP-EQUIV="Pragma" CONTENT="no-cache">
+<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache">
+
+<link href="images/favicon.png" type="image/png" rel="icon">
+<title>Purchase Price Variance Dashboard</title>
+
+<!--  Bootstrap the UI5 core library -->
+
+<script id="sap-ui-bootstrap"
+    src="resources/sap-ui-core.js" data-sap-ui-libs="sap.m"
+    data-sap-ui-theme="sap_bluecrystal"
+    data-sap-ui-xx-bindingSyntax="complex" data-sap-ui-compatVersion="1.16"
+    data-sap-ui-resourceroots='{"com.jabil.fi": "./"}'>
+</script>
+
+<!-- Create the unified shell default renderer control and add it to the page -->
+<script type="text/javascript">
+	sap.ui.getCore().attachInit(function() {
+		new sap.m.Shell({
+			app: new sap.ui.core.ComponentContainer({
+				height : "100%",
+				name : "com.jabil.fi"
+			})
+		}).placeAt("content");
+	});
+</script>
+ <script type="text/javascript" src="util/Global.js"></script>
+ <script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+</script>
+</head>
+
+<!-- UI Content -->
+<body class="sapUiBody" id="content">
+</body>
+</html>

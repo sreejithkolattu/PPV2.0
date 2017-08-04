@@ -1,0 +1,55 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<TableSelectDialog
+		noDataText="No Products Found"
+		title="Select Grouped Items"
+		search="handleTableGroupSearch"
+		confirm="handleTableGroupFilter"
+		contentWidth="550px"
+		close="closeTableGroupFilter"
+		items="{
+			path : '/grpHeaderSum'
+		}">
+		<ColumnListItem>
+			<cells>				
+				<Text text="{groupName}"  sortProperty="groupName"/>								
+				<ObjectNumber
+						number="{
+							parts:[{path:'sumTotalPPVLcl'},{path:'grpCurrency'}],
+							type: 'sap.ui.model.type.Currency',
+							formatOptions: {showMeasure: false}
+						}"
+						unit="{lclCurrency}" />		
+				<ObjectNumber
+						number="{
+							parts:[{path:'sumTotalPPVGrp'},{path:'lclCurrency'}],
+							type: 'sap.ui.model.type.Currency',
+							formatOptions: {showMeasure: false}
+						}"
+						unit="{grpCurrency}"/>
+
+			</cells>
+		</ColumnListItem>
+			
+		<columns>
+			<Column width="12em" sortProperty="groupName" filterProperty="groupName" filterType="sap.ui.model.type.String">
+				<header>
+					<Text text="Group Item" />
+				</header>
+			</Column>			
+			<Column
+					width="12em"
+				demandPopin="true" sortProperty="sumTotalPPVLcl" filterProperty="sumTotalPPVLcl" filterType="sap.ui.model.type.Float">
+				<header> <Text text="Total PPV" /> </header>
+			</Column>
+			<Column 
+					width="12em"
+				demandPopin="true"  sortProperty="sumTotalPPVGrp" filterProperty="sumTotalPPVGrp" filterType="sap.ui.model.type.Float">
+				<header> <Text text="Total PPV" /> </header>
+			</Column>
+
+		</columns>
+	</TableSelectDialog>
+	
+</core:FragmentDefinition>
