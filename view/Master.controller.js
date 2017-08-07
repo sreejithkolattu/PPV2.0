@@ -377,6 +377,11 @@ sap.ui.core.mvc.Controller.extend("com.jabil.fi.view.Master", {
 					handleNoRecordFound("Excel Download");
 				}else{
 				//var mainResults = expModel.getData().d.results[0];
+				//If Group price is 0, copy from local price. Similar do in detail Util
+					$.each(expModel.oData.d.results,function(idx,item){
+						item.STPRS_GRP = (item.STPRS_GRP==="0.00"||item.STPRS_GRP==="0")?parseFloat(item.STPRS_LCL):parseFloat(item.STPRS_GRP);
+						item.STPRS_UM_GRP = (item.STPRS_UM_GRP==="0.00"||item.STPRS_UM_GRP==="0")?parseFloat(item.STPRS_UM_LCL):parseFloat(item.STPRS_UM_GRP) ;
+					});
 					var oExport = new sap.ui.core.util.Export({
 						exportType : new sap.ui.core.util.ExportTypeCSV({
 							separatorChar : ","

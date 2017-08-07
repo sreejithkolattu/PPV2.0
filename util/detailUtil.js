@@ -1098,11 +1098,12 @@ var removeBatchCommentFlag = false;
 				//convert num value in float
 				item.Fxval=parseFloat(item.Fxval);
 				item.Menge=parseFloat(item.Menge);
-
 				item.STPRS_LCL=parseFloat(item.STPRS_LCL);
-				item.STPRS_GRP=parseFloat(item.STPRS_GRP);
+				//If Group price is 0, copy from local price
+				// Do similar do in master controller for excel in front page
+				item.STPRS_GRP = (item.STPRS_GRP==="0.00"||item.STPRS_GRP==="0")?parseFloat(item.STPRS_LCL):parseFloat(item.STPRS_GRP);
 				item.STPRS_UM_LCL=parseFloat(item.STPRS_UM_LCL);
-				item.STPRS_UM_GRP=parseFloat(item.STPRS_UM_GRP);
+				item.STPRS_UM_GRP = (item.STPRS_UM_GRP==="0.00"||item.STPRS_UM_GRP==="0")?parseFloat(item.STPRS_UM_LCL):parseFloat(item.STPRS_UM_GRP) ;
 				item.TOTAL_GRP=parseFloat(item.TOTAL_GRP);
 				item.TOTAL_LCL=parseFloat(item.TOTAL_LCL);
 				item.WRBTR=parseFloat(item.WRBTR);
