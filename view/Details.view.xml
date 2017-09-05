@@ -35,7 +35,7 @@ controllerName="com.jabil.fi.view.Details">
 						<SearchField id="mySearchField" minWidth="50px" maxWidth="100px" liveChange="onFilter">
 						<layoutData><OverflowToolbarLayoutData minWidth="200px" maxWidth="300px" shrinkable="true"/></layoutData>
 						</SearchField>
-					    <Button type="Emphasized" tooltip="{i18n>ResetTooltip}" text="{i18n>Reset}"  press="onReset"/> 
+					    <Button id="resetTableBtn" type="Emphasized" tooltip="{i18n>ResetTooltip}" text="{i18n>Reset}"  press="onReset"/> 
 					    <Button id="revenuePostBtn" type="Emphasized" tooltip="{i18n>RevenueTooltip}" text="{i18n>RevenuePost}" visible="false"  press="onRevenuePost"/>
 						<Button type="Emphasized" tooltip="{i18n>SaveTooltip}" text="{i18n>Save}" icon="sap-icon://save" press="onSave"/>
                 		<Button type="Reject" tooltip="{i18n>PostTooltip}" text="{i18n>PostText}" icon="sap-icon://accept" press="onPublishToSap"/>						

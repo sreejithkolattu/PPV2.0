@@ -1928,8 +1928,14 @@ sap.ui.define([
 				if (viewFlag != "D") {
 					busyDialog.open();
 					viewFlag = "D";
-					if (sapClient != undefined)
-						executeTableModel(_dtlView, true);
+					if (sapClient != undefined){
+						executeTableModel(_dtlView, true);}
+					if(typeof _oDetailTable !== 'undefined'){
+						_dtlView.byId("resetTableBtn").firePress();
+					}
+					if(groupModification){
+								additionalReset();
+							}
 				}
 			} catch (e) {
 				handleException(e);

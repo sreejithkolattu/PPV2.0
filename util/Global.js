@@ -37,4 +37,5 @@ jQuery.sap.declare("com.jabil.fi.util.Global");
     var filterRegex = /^(?=.*?[0-9])[0-9()-<>]+$/;
     var isRevenuePostActive = false;
     var groupModification = false;
-   
+    var isResonCodePage = false;
+    var _refreshNeed = false;

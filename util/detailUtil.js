@@ -13,42 +13,42 @@ var removeBatchCommentFlag = false;
 	*/
 	function isValidForPosting(status) {
 		try{
-			if(status!=null && status.indexOf("RS")==0)	 
+			if(status!=null && status.indexOf("RS")===0){	 
 				return false ;
-			else if(status.indexOf("S")==0)
+			}else if(status.indexOf("S")===0){
 				return false;
-			else if(status.indexOf("N")==0)
+			}else if(status.indexOf("N")===0){
 				return false;
-			else
-				return true;
+			}else{
+				return true;}
 		}catch(e){handleException(e);}
 	}
 	/**
 	 */
 	function isValidForEnable(status) {
 		try{
-			if(status!=null && status.indexOf("RS")==0)	 
+			if(status!=null && status.indexOf("RS")===0){	 
 				return false ;
-			else if(status.indexOf("S")==0 && !isRevenuePostActive)
+			}else if(status.indexOf("S")===0 && !isRevenuePostActive){
 				return false;
-			else if(status.indexOf("N")==0)
+			}else if(status.indexOf("N")===0){
 				return false;
-			else
-				return true;
+			}else{
+				return true;}
 		}catch(e){handleException(e);}
 	}
 	/**
 	 */
 	function revenueStatusFormatText(pubStatus) {	
        try {
-    	   if(pubStatus!=null && pubStatus.toString()!= "NaN"){
-	            if ( pubStatus == "X") {
+    	   if(pubStatus!=null && pubStatus.toString()!== "NaN"){
+	            if ( pubStatus === "X") {
 	                 return _oResourceBundle.getText("ERROR");
-				} else if ( pubStatus == "") {
+				} else if ( pubStatus === "") {
 					return "";		
-	            } else if ( pubStatus.indexOf("S") == 0) {
+	            } else if ( pubStatus.indexOf("S") === 0) {
 					return _oResourceBundle.getText("POSTED");
-	            } else if ( pubStatus.indexOf("R") == 0) {
+	            } else if ( pubStatus.indexOf("R") === 0) {
 	            	this.addStyleClass("cyanClass");
 					return  _oResourceBundle.getText("POSTED");	
 	            } else {
@@ -65,7 +65,7 @@ var removeBatchCommentFlag = false;
 	 */
 	function isValidRecordForPosting(reasonCode) {
 		try{
-			if(reasonCode =="3" || reasonCode =="4" || reasonCode =="5" || reasonCode =="11" ){						
+			if(reasonCode ==="3" || reasonCode ==="4" || reasonCode ==="5" || reasonCode ==="11" ){						
 				return true;
 				}
 		}catch(e){handleException(e);}
@@ -78,7 +78,7 @@ var removeBatchCommentFlag = false;
 			var tableData = _oDetailTableModel.oData.tableData;
 			for (var i = 0; i < selCols.length; i++) {
 				var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2]; //Revenue posted tiem is allowed to save comment
-			if ( tableData[selIndex].Status.indexOf("S") == 0 || tableData[selIndex].Status.indexOf("N") == 0 ||tableData[selIndex].Status.indexOf("RS")== 0 ) {
+			if ( tableData[selIndex].Status.indexOf("S") === 0 || tableData[selIndex].Status.indexOf("N") === 0 ||tableData[selIndex].Status.indexOf("RS")=== 0 ) {
 							return false;
 					}
 			}
@@ -93,7 +93,7 @@ var removeBatchCommentFlag = false;
 	function isValidForCommentAssignment(selRow) {
 		try{
 			var tableData = _oDetailTableModel.oData.tableData;
-			if ( tableData[selRow].Status.indexOf("S") == 0 ||tableData[selRow].Status.indexOf("RS")== 0 ) {
+			if ( tableData[selRow].Status.indexOf("S") === 0 ||tableData[selRow].Status.indexOf("RS")=== 0 ) {
 					return false;
 			}
 			return true;
@@ -107,7 +107,7 @@ var removeBatchCommentFlag = false;
 	function isValidForRCAssignment(selRow) {
 		try{
 			var tableData = _oDetailTableModel.oData.tableData;
-			if ( tableData[selRow].Status.indexOf("S") == 0 || tableData[selRow].Status.indexOf("R") == 0 || tableData[selRow].Status.indexOf("RS")== 0 ) {
+			if ( tableData[selRow].Status.indexOf("S") === 0 || tableData[selRow].Status.indexOf("R") === 0 || tableData[selRow].Status.indexOf("RS")=== 0 ) {
 					return false;
 			}
 			return true;
@@ -124,7 +124,7 @@ var removeBatchCommentFlag = false;
 			var tableData = _oDetailTableModel.oData.tableData;
 			for (var i = 0; i < selCols.length; i++) {
 				var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2];
-				if (tableData[selIndex].Status.indexOf("R") == 0 || tableData[selIndex].Status.indexOf("S") == 0 ||tableData[selIndex].Status.indexOf("RS")== 0 ) {
+				if (tableData[selIndex].Status.indexOf("R") === 0 || tableData[selIndex].Status.indexOf("S") === 0 ||tableData[selIndex].Status.indexOf("RS")=== 0 ) {
 						return false;
 				}
 			}
@@ -142,7 +142,7 @@ var removeBatchCommentFlag = false;
 				var tableData = _oDetailTableModel.oData.tableData;
 				for (var i = 0; i < selCols.length; i++) {
 					var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2];
-					if (tableData[selIndex].Status.indexOf("R") == 0 || tableData[selIndex].Status.indexOf("RS")== 0 ) {
+					if (tableData[selIndex].Status.indexOf("R") === 0 || tableData[selIndex].Status.indexOf("RS")=== 0 ) {
 							return false;
 					}
 				}
@@ -155,7 +155,7 @@ var removeBatchCommentFlag = false;
 	/**
 	 */	
 	function isRowSelectionDisable(selStatus) {
-			if (selStatus.indexOf("SR") == 0 || selStatus.indexOf("N") == 0 || (selStatus.indexOf("S") == 0 && !isRevenuePostActive) ) {
+			if (selStatus.indexOf("SR") === 0 || selStatus.indexOf("N") === 0 || (selStatus.indexOf("S") === 0 && !isRevenuePostActive) ) {
 				return true;
 			}
 		}
@@ -169,7 +169,7 @@ var removeBatchCommentFlag = false;
 				// Validate the records with table model to confirm reason codes are saved.
 				for (var i = 0; i < selCols.length; i++) {
 					var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2];
-					if (tableData[selIndex].Status.indexOf("S") == 0 || tableData[selIndex].Status.indexOf("RS") == 0 || tableData[selIndex].Status.indexOf("N") == 0 || tableData[selIndex].Reasoncode == "") {
+					if (tableData[selIndex].Status.indexOf("S") === 0 || tableData[selIndex].Status.indexOf("RS") === 0 || tableData[selIndex].Status.indexOf("N") === 0 || tableData[selIndex].Reasoncode === "") {
 							return false;
 					}
 				}
@@ -185,11 +185,11 @@ var removeBatchCommentFlag = false;
 		try{
 			text = text.trim();
 			var statusTextId="";
-			if(text==""||text==null||text==" "){
+			if(text===""||text==null||text===" "){
 				statusTextId= "";
-			}else if(text=="Posted" ||text=="posted" ){
+			}else if(text==="Posted" ||text==="posted" ){
 				statusTextId= "S:";
-			}else if(text=="Error" ||text=="error" ){
+			}else if(text==="Error" ||text==="error" ){
 				statusTextId= "X";
 			}else{	
 				statusTextId= "N:";
@@ -244,11 +244,11 @@ var removeBatchCommentFlag = false;
 					  },
 					  success : function(data , status, xhr) {
 						 var timeDelay=0;
-						if(type=="POST" && sap.ui.getCore().getModel("postRc")!=undefined){
+						if(type==="POST" && sap.ui.getCore().getModel("postRc")!=undefined){
 							timeDelay =5000;
 							var postQ; postQ = sap.ui.getCore().getModel("postQ")!=null?sap.ui.getCore().getModel("postQ"):[]; 
 							$.each(sap.ui.getCore().getModel("postRc"),function(id,item){
-								if(postQ.indexOf(item)== -1)postQ.push(item);
+								if(postQ.indexOf(item)=== -1)postQ.push(item);
 								});
 							sap.ui.getCore().setModel(postQ,"postQ");
 							sap.ui.getCore().setModel(null,"postRc");
@@ -257,15 +257,19 @@ var removeBatchCommentFlag = false;
 						if(!isRestricted){
 							setTimeout(function(){
 								executeTableModel(view,false);	
-								if(type=="SAVE")
-									informationMessage(_oResourceBundle.getText("ECC_SAVE_UPDATE_SUCCESS"));
-								else
+								if(type==="SAVE"){
+									_saveButtonUpdation();
+								}else{
 									informationMessage(_oResourceBundle.getText("ECC_POST_UPDATE_SUCCESS"));
+									_oDetailTable._oSelection.aSelectedIndices.length=0;
+									_refreshTable();
+								}
 								}, timeDelay);
 						}else{
 								executeTableModel(view,false);	
-								if(type=="SAVE")
-									informationMessage(_oResourceBundle.getText("ECC_SAVE_UPDATE_SUCCESS"));
+								if(type==="SAVE"){
+									_saveButtonUpdation();
+								}
 						}
 					  }
 					});
@@ -287,7 +291,7 @@ var removeBatchCommentFlag = false;
 	function executeTableModel(view,clearFlag){
 		try{
 			if(sapClient!=undefined){
-				if(_oResourceBundle ==undefined){setResourceModel(view);}
+				if(_oResourceBundle ===undefined){setResourceModel(view);}
 				if(clearFlag){clearTableContent(view);}
 				busyDialog.open();	
 				isLocalCurr = selectedCurr=="Grp"?false:true;
@@ -314,7 +318,7 @@ var removeBatchCommentFlag = false;
 					    		informationMessage(_oResourceBundle.getText("NO_RECORD"));
 					    		busyDialog.close();	
 					    }else{
-					    	if(_oDetailTableModel!=undefined){			    		
+					    	if(_oDetailTableModel!==undefined){			    		
 					    		_oDetailTableModel.oData.tableData=data.d.results;
 								sap.ui.getCore().setModel(_oDetailTableModel,"_oDetailTableModel"); 
 								processTableItems();
@@ -357,23 +361,23 @@ var removeBatchCommentFlag = false;
 			statusModel.attachRequestCompleted(function(){
 				if(statusModel.getData()!= null ){
 					var receivedStatus = statusModel.getData().d.Status;
-					if(type=="X"){	// The error will send the status X				
-					    state = "Error";
-					    icon = "sap-icon://alert";						
+					if(type==="X"){	// The error will send the status X				
+					    var state = "Error";
+					    var icon = "sap-icon://alert";						
 						oDetailMultiDialog.setModel("");
 						var resultSetModel = new sap.ui.model.json.JSONModel();
 						resultSetModel.setData({icon:icon ,state: state,text:receivedStatus});
 						oDetailMultiDialog.setModel(resultSetModel);
 						resultSetModel.refresh();
-					}else if(Rtype==_oResourceBundle.getText("AP")){							
-						if(receivedStatus.trim()==_oResourceBundle.getText("DD_INCORRECT_PO"))
+					}else if(Rtype===_oResourceBundle.getText("AP")){							
+						if(receivedStatus.trim()===_oResourceBundle.getText("DD_INCORRECT_PO")){
 							oDetailMultiDialog.getModel().getData().kpComments[0].selected=true;
-						else if(receivedStatus.trim()==_oResourceBundle.getText("DD_INVOICE_INCORRECT"))
+						}else if(receivedStatus.trim()===_oResourceBundle.getText("DD_INVOICE_INCORRECT")){
 							oDetailMultiDialog.getModel().getData().kpComments[1].selected=true;
-						else if(receivedStatus.trim()==_oResourceBundle.getText("DD_DNCN"))
+						}else if(receivedStatus.trim()===_oResourceBundle.getText("DD_DNCN")){
 							oDetailMultiDialog.getModel().getData().kpComments[2].selected=true;
-						else if(receivedStatus.trim()==_oResourceBundle.getText("DD_INCORRECT_CONSIGNED"))
-							oDetailMultiDialog.getModel().getData().kpComments[3].selected=true;
+						}else if(receivedStatus.trim()===_oResourceBundle.getText("DD_INCORRECT_CONSIGNED")){
+							oDetailMultiDialog.getModel().getData().kpComments[3].selected=true;}
 						oDetailMultiDialog.getModel().refresh();
 					}else{
 						var commentModel = new sap.ui.model.json.JSONModel();
@@ -416,17 +420,17 @@ var removeBatchCommentFlag = false;
 		*   3. For the table,add it to _oDetailTableModel
 		*/
 	function loadRCModel(view){
-		try{if(_oResourceBundle ==undefined){setResourceModel(view);}	
+		try{if(_oResourceBundle ===undefined){setResourceModel(view);}	
 			var rcModel = new sap.ui.model.json.JSONModel(getDataEndPoint("rcModel"));
 			rcModel.attachRequestCompleted(function(){
 				var data = rcModel.getData();
 				sap.ui.getCore().setModel(rcModel,"rcModel");
-				if(data!=undefined && data.d!=undefined){// && reasonCodeDD != null){
+				if(data!==undefined && data.d!==undefined){// && reasonCodeDD != null){
 						data.d.results.push({Description: _oResourceBundle.getText("SELECTONE"),Reasoncode: ""});
 						data.d.results.push({Description: _oResourceBundle.getText("REMOVERC"),Reasoncode: "X"});
 						rcModel.setData(data.d.results);
-						if(view!=null)
-							setreasonCodeDDModel(view);
+						if(view!=null){
+							setreasonCodeDDModel(view);}
 				}else{
 					handleRequestFailed("rcModel",_oResourceBundle.getText("NO_DATA_FROM_BACKEND"));
 				}			
@@ -905,11 +909,11 @@ var removeBatchCommentFlag = false;
 		try{
 			if(value!=null){
 				if(value.indexOf("S") === 0 || value.indexOf("R") === 0 || value.indexOf("RS") === 0){
-					if(value.split(":")[1]!==null && value.indexOf("S") === 0 && value.split(":")[1].length>10){
+					if(value.split(":")[1]!=null && value.indexOf("S") === 0 && value.split(":")[1].length>10){
 						return _oResourceBundle.getText("POSTED_ID_MSG",[(value.split(":")[1].trim()).substr(0,10)]);
-					}else if(value.split(":")[1]!==null && value.indexOf("R") === 0 && value.split(":")[1].length>10){
+					}else if(value.split(":")[1]!=null && value.indexOf("R") === 0 && value.split(":")[1].length>10){
 						return _oResourceBundle.getText("REV_POSTED_ID_MSG",[(value.split(":")[1].trim()).substr(0,10)]);
-					}else if(value.split(":")[1]!==null && value.indexOf("RS") === 0 && value.split(":")[1].length>10){
+					}else if(value.split(":")[1]!=null && value.indexOf("RS") === 0 && value.split(":")[1].length>10){
 						return _oResourceBundle.getText("POSTED_BOTH_MSG",[(value.split(":")[1].trim()).substr(0,10)]);	
 					}else{
 						return _oResourceBundle.getText("POSTED_ID_UNALAILABLE");
@@ -932,9 +936,9 @@ var removeBatchCommentFlag = false;
 	*/
 	function getReasoncodeTextExcel(value){	
 		try{
-			if(value!=""&&value!="0"&&value!=null&&value!="Select One"){
+			if(value!==""&&value!=="0"&&value!=null&&value!=="Select One"){
 				for(var i=0;i<sap.ui.getCore().getModel("rcModel").oData.length;i++){
-					if(value == sap.ui.getCore().getModel("rcModel").oData[i].Reasoncode){
+					if(value === sap.ui.getCore().getModel("rcModel").oData[i].Reasoncode){
 						return sap.ui.getCore().getModel("rcModel").oData[i].Description;
 					}
 				}
@@ -1028,9 +1032,9 @@ var removeBatchCommentFlag = false;
 		try{
 			var reasonCodeTest="";
 			var modelData = sap.ui.getCore().getModel("_oDetailTableModel").getData();
-			if(text==""||text==null){
+			if(text===""||text==null){
 				reasonCodeTest= "";
-			}else if(text=="0" ||text==_oResourceBundle.getText("SELECTONE")|| text=="Select One"){
+			}else if(text==="0" ||text===_oResourceBundle.getText("SELECTONE")|| text==="Select One"){
 				reasonCodeTest= "0";
 			}else{	
 				for(var i=0;i<modelData.ReasonCodeDD.length;i++){
@@ -1121,15 +1125,15 @@ var removeBatchCommentFlag = false;
 				}
 				//check the status of item exist in the post queue
 				if(sap.ui.getCore().getModel("postQ")!=null){
-					if(item.Status =="" && itemInPostQ(item)){
+					if(item.Status ==="" && itemInPostQ(item)){
 						item.Status="N1:Posting In Process";
 						//remove the selection for locked items
-						for(i=0;i<_oDetailTable._oSelection.aSelectedIndices.length;i++) {
-							if(_oDetailTable._oSelection.aSelectedIndices[i]==idx){
+						for(var i=0;i<_oDetailTable._oSelection.aSelectedIndices.length;i++) {
+							if(_oDetailTable._oSelection.aSelectedIndices[i]===idx){
 								_oDetailTable._oSelection.aSelectedIndices.splice(i,1);
 								}
 							}
-					}else if(item.Status!="") itemInPostQ(item,true);
+					}else if(item.Status!=="") {itemInPostQ(item,true);}
 				}
 
 			});
@@ -1159,7 +1163,7 @@ var removeBatchCommentFlag = false;
 			view.byId('sumTotalPPV').mBindingInfos.text.parts[0].path = "/Total"+curr+"/sumTotalPPV";
 		
 			// In the initial load, it will be undefined. still we need both sections 
-			if(view.byId('sumTotalPPV').mBindingInfos.text.binding!=undefined){
+			if(view.byId('sumTotalPPV').mBindingInfos.text.binding!==undefined){
 				view.byId('sumTotalPPV').mBindingInfos.text.binding.sPath = "/Total"+curr+"/sumTotalPPV";
 			}
 			var myData=[];
@@ -1331,7 +1335,7 @@ var removeBatchCommentFlag = false;
 	 */
 	function setIndexForColumnArray(ColumnCollection,tableItems) {
 	 	$.each(ColumnCollection, function(idx,item){	
-	    var test = tableItems.filter(function(tableItems){return tableItems.columnKey == item.path});
+	    var test = tableItems.filter(function(tableItems){return tableItems.columnKey === item.path});
 	      item.index = 	test[0].index!=null?test[0].index:idx; 	
 	 	});
 	 	return ColumnCollection;
@@ -1342,11 +1346,11 @@ var removeBatchCommentFlag = false;
 	function itemInPostQ(item,flag){
 		try{
 			var postQ=sap.ui.getCore().getModel("postQ");
-			if(postQ==null) return false;
-			for(i=0;i<postQ.length;i++){
-				if((postQ[i].Belnr  == item.Belnr) && (postQ[i].Bukrs == item.Bukrs) && (postQ[i].Buzei == item.Buzei)  && (postQ[i].Gjahr == item.Gjahr) ){ 
+			if(postQ===null){ return false;}
+			for(var i=0;i<postQ.length;i++){
+				if((postQ[i].Belnr  === item.Belnr) && (postQ[i].Bukrs === item.Bukrs) && (postQ[i].Buzei === item.Buzei)  && (postQ[i].Gjahr === item.Gjahr) ){ 
 					if(flag){
-						if(item.Status=="X") {
+						if(item.Status==="X") {
 							postQ=null;sap.ui.getCore().setModel(null,"postQ"); 
 							}else{
 								postQ.splice(i,1);
@@ -1370,9 +1374,9 @@ var removeBatchCommentFlag = false;
 	*/
 		function _getFilter(filterPath,fValue){	
 		try{
-			if(fValue.indexOf("<")==0){
-				filter = new sap.ui.model.Filter({path:filterPath,operator:sap.ui.model.FilterOperator.LE,value1:parseFloat(fValue.slice(1).trim())});
-			}else if(fValue.indexOf(">")==0){
+			if(fValue.indexOf("<")===0){
+				var filter = new sap.ui.model.Filter({path:filterPath,operator:sap.ui.model.FilterOperator.LE,value1:parseFloat(fValue.slice(1).trim())});
+			}else if(fValue.indexOf(">")===0){
 				filter = new sap.ui.model.Filter({path:filterPath,operator:sap.ui.model.FilterOperator.GE,value1:parseFloat(fValue.slice(1).trim())});
 			}else{
 				filter = new sap.ui.model.Filter({path:filterPath,operator:sap.ui.model.FilterOperator.EQ,value1:parseFloat(fValue.trim())});     	
@@ -1398,11 +1402,11 @@ var removeBatchCommentFlag = false;
 	*   2. prepare the input statements
 	*/
 	function _getDetailSelectionInput(selParameter){
-
 	try{
 		//Revenue posting		
 		var _route = this._oRouter._oRouter._oRouter._prevRoutes[0].params;
-		if(_route[0]=="Reasoncode" && _route[1]=="4"){
+		isResonCodePage = (_route[0]==="Reasoncode");
+		if(isResonCodePage && _route[1]==="4"){
 				isRevenuePostActive = true;
 				_dtlView.byId("revenuePostBtn").setVisible(true);
 				_dtlView.byId("mySearchField").setWidth("70px");
@@ -1444,7 +1448,7 @@ var removeBatchCommentFlag = false;
 		
 	    if(view!=null){
 	    	var personalisationData = getSavedPersonalisationData();
-			if(personalisationData!=undefined && personalisationData!= null){	
+			if(personalisationData!==undefined && personalisationData!= null){	
 				_removeAllDtlTableColumns(view,personalisationData);
 				_addAllDtlTableColumns(view,personalisationData.ColumnCollection);				
 			}else{
@@ -1481,10 +1485,10 @@ var removeBatchCommentFlag = false;
 			$.each(ColumnCollection, function(idx,item){
 				try{
 					view.byId("detailTable").addColumn(view.byId(item.path));
-					if(view.byId(item.path)!=undefined)
-						view.byId(item.path).setVisible(item.visible);
+					if(view.byId(item.path)!==undefined){
+						view.byId(item.path).setVisible(item.visible);}
 					// Always make Fxval after Total PPV
-					 if(item.path=="TOTAL_LCL"){
+					 if(item.path==="TOTAL_LCL"){
 						 view.byId("detailTable").addColumn(view.byId("Fxval"));
 					 }
 				}catch(e){handleException(e);}
@@ -1500,20 +1504,20 @@ var removeBatchCommentFlag = false;
 	function _disableTableItems(){
 		try{
 			$.each(sap.ui.getCore().getModel("_oDetailTableModel").oData.tableData, function(idx,item){	
-				if (item.Blart.slice(-2)=="PR"){
+				if (item.Blart.slice(-2)==="PR"){
 					_oDetailTableModel.oData.tableData[idx].Status="N:Posting Not Allowed";
 					_oDetailTableModel.oData.tableData[idx].Reasoncode="4";
 				}
 				//check the status of item exist in the queue
-				if(item.Status =="" && itemInPostQ(item)){
+				if(item.Status ==="" && itemInPostQ(item)){
 					item.Status="N1:Posting In Process";
 					//remove the selection for locked items
-					for(i=0;i<_oDetailTable._oSelection.aSelectedIndices.length;i++) {
-						if(_oDetailTable._oSelection.aSelectedIndices[i]==idx){
+					for(var i=0;i<_oDetailTable._oSelection.aSelectedIndices.length;i++) {
+						if(_oDetailTable._oSelection.aSelectedIndices[i]===idx){
 							_oDetailTable._oSelection.aSelectedIndices.splice(i,1);
 							}
 						}
-				}else if(item.Status!="") itemInPostQ(item,true);
+				}else if(item.Status!=="") {itemInPostQ(item,true);}
 			});
 		}catch(e){handleException(e);}
 	}
@@ -1528,11 +1532,11 @@ var removeBatchCommentFlag = false;
 	function groupSortBugFix(){
 			//start
 	try{		
-		  if(_oDetailTable.getContextByIndex(0).groupHeader!=undefined){
+		  if(_oDetailTable.getContextByIndex(0).groupHeader!==undefined){
 		  	groupModification = true;
 		  	var middleItem = Math.floor(_oDetailTable.getBinding().aIndices.length/2);
 		  	var lastItem = _oDetailTable.getBinding().aIndices.length -1;
-			 if((_oDetailTable.getBinding().aIndices[0] == 1 ||_oDetailTable.getBinding().aIndices[0] == middleItem )&& _oDetailTable.getBinding().aIndices[2] == 2 && (_oDetailTable.getBinding().aIndices[middleItem] == 1 || _oDetailTable.getBinding().aIndices[middleItem] == middleItem)){
+			 if((_oDetailTable.getBinding().aIndices[0] === 1 ||_oDetailTable.getBinding().aIndices[0] === middleItem )&& _oDetailTable.getBinding().aIndices[2] === 2 && (_oDetailTable.getBinding().aIndices[middleItem] === 1 || _oDetailTable.getBinding().aIndices[middleItem] === middleItem)){
 			//	Change indices
 				_oDetailTable.getContextByIndex(0).oContext.sPath ="/tableData/0" ;
 				_oDetailTable.getContextByIndex(2).sPath = "/tableData/1" ;
@@ -1541,7 +1545,7 @@ var removeBatchCommentFlag = false;
 				_oDetailTable.getBinding().aIndices[1]=1;
 				_oDetailTable.getBinding().aIndices[middleItem]=middleItem;
 				
-			 }else if((_oDetailTable.getBinding().aIndices[1] == lastItem )&& _oDetailTable.getBinding().aIndices[2] == lastItem-2 &&(_oDetailTable.getBinding().aIndices[middleItem] == (lastItem-1))){
+			 }else if((_oDetailTable.getBinding().aIndices[1] === lastItem )&& _oDetailTable.getBinding().aIndices[2] === lastItem-2 &&(_oDetailTable.getBinding().aIndices[middleItem] === (lastItem-1))){
 			    var temp = (_oDetailTable.getBinding().aIndices[1] >_oDetailTable.getBinding().aIndices[0])?_oDetailTable.getBinding().aIndices[0]:_oDetailTable.getBinding().aIndices[1] ;
 			    _oDetailTable.getContextByIndex(0).oContext.sPath ="/tableData/"+lastItem;
 				_oDetailTable.getContextByIndex(2).sPath = "/tableData/"+(lastItem-1);
@@ -1562,6 +1566,7 @@ var removeBatchCommentFlag = false;
 		for (var i=0; i<_oDetailTable.getBinding().aIndices.length; i++){
 			_oDetailTable.getContextByIndex(i).sPath = "/tableData/"+(_oDetailTable.getBinding().aIndices[i]).toString();
 		}
+		_oDetailTableModel.oData.grpHeader.grpHeaderSum=[];
 		groupModification=false;
 	}catch(e){
 		handleException(e);}
@@ -1571,7 +1576,7 @@ var removeBatchCommentFlag = false;
 	*/
 	function formatDate(Budat){
 	try {
-			if (Budat != null && Budat!= "") {
+			if (Budat != null && Budat!== "") {
 				Budat = Budat.slice(6, 19);
 				var n = parseInt(Budat);
 				return new Date(n).toLocaleDateString('en-US',{timeZone: 'UTC'}).toString();
@@ -1582,6 +1587,55 @@ var removeBatchCommentFlag = false;
 			handleException(e);
 		}
 	}
+	//Methods for maintain grouped table state after updation
+	function _saveButtonUpdation(){
+		informationMessage(_oResourceBundle.getText("ECC_SAVE_UPDATE_SUCCESS"));
+		if(isResonCodePage){ //Handle record after updation
+				if(_oDetailTable!= null &&_oDetailTable.getGroupBy()!=null){
+					_refreshTable();
+				}else if(_oDetailTable!= null &&_oDetailTable.getGroupBy()==null){//ungrouped table,remove selection
+					clearTableSelection(_dtlView);
+				}
+		}else{
+			if(_oDetailTable.getGroupBy()!=null){
+				_refreshTable();
+			}
+		}
+		}
+	// To refresh after rendering
+	function _refreshTable(){
+				_refreshNeed = true;
+					_oDetailTable.addEventDelegate({
+						onAfterRendering: function() {
+							if(	_refreshNeed){
+								_refreshGroupedTableUpdate();
+								_oDetailTable._scrollNext();
+							//	_oDetailTable._scrollPageUp();
+							}
+						}});
+						_oDetailTable.refreshRows();
+	}
+	//restore the selection and group
+	function _refreshGroupedTableUpdate(){
+		busyDialog.open();
+		var tempGroupCol = _oDetailTable.getGroupBy();
+		var tempSelectedIndex = _oDetailTable.getSelectedIndices();
+		_refreshNeed = false;
+		_dtlView.byId("resetTableBtn").firePress();
+		_oDetailTable.setEnableGrouping(true);
+		_oDetailTable.setGroupBy(tempGroupCol);
+		//For reselection of records after refresh
+		if(!isResonCodePage){
+			for (var i = 0; i < tempSelectedIndex.length; i++) {
+				if(i==0)//need one inital call for proper selection
+				_oDetailTable._oSelection.addSelectionInterval(tempSelectedIndex[i],tempSelectedIndex[i]);
+			    _oDetailTable._oSelection.addSelectionInterval(tempSelectedIndex[i],tempSelectedIndex[i]);
+			}
+		}
+		_oDetailTableModel.refresh();
+		busyDialog.close();	
+	}
+	
 	function _ModelFormatChecker(){
 		try{
 			$.each(_oDetailTableModel.getData().tableData, function(idx,item){	
