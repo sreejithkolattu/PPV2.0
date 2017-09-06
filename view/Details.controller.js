@@ -1446,7 +1446,7 @@ sap.ui.define([
 					}
 				} else {
 					busyDialog.close();
-					informationMessage(_oResourceBundle.getText("POSTING_VALIDATION_FAIL"));
+					//informationMessage(_oResourceBundle.getText("POSTING_VALIDATION_FAIL"));
 				}
 			} catch (e) {
 				busyDialog.close();
@@ -1606,7 +1606,7 @@ sap.ui.define([
 					if(isValidForRevenuePosting()){
 							this.openConfirmationDialog("onRevenuePost");
 					}else{
-						informationMessage(_oResourceBundle.getText("REVENUE_INVALID_RECORDS"));
+					//	informationMessage(_oResourceBundle.getText("REVENUE_INVALID_RECORDS"));
 					}
 				
 				}
@@ -1934,8 +1934,12 @@ sap.ui.define([
 						_dtlView.byId("resetTableBtn").firePress();
 					}
 					if(groupModification){
-								additionalReset();
-							}
+						additionalReset();
+					}
+					if(	_refreshNeed){
+						_oDetailTable._scrollNext();
+						_oDetailTable._scrollPrevious();
+					}
 				}
 			} catch (e) {
 				handleException(e);

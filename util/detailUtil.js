@@ -140,11 +140,20 @@ var removeBatchCommentFlag = false;
 		try {
 				var selCols = _oDetailTable._oSelection.aSelectedIndices;
 				var tableData = _oDetailTableModel.oData.tableData;
+				var totalPPVSum_lcl = 0;
+				var totalPPVSum_grp = 0;
 				for (var i = 0; i < selCols.length; i++) {
 					var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2];
 					if (tableData[selIndex].Status.indexOf("R") === 0 || tableData[selIndex].Status.indexOf("RS")=== 0 ) {
+							informationMessage(_oResourceBundle.getText("REVENUE_INVALID_RECORDS"));
 							return false;
 					}
+					totalPPVSum_lcl+=tableData[selIndex].TOTAL_LCL;
+					totalPPVSum_grp+=tableData[selIndex].TOTAL_GRP;
+				}
+				if(totalPPVSum_lcl === 0 & totalPPVSum_lcl === 0 ){
+					informationMessage(_oResourceBundle.getText("ZEROPPV_PUBLISH_MSG"));
+					return false;
 				}
 				return true;
 			} catch (e) {
@@ -165,13 +174,21 @@ var removeBatchCommentFlag = false;
 			try {
 				var selCols = _oDetailTable._oSelection.aSelectedIndices;
 				var tableData = _oDetailTableModel.oData.tableData;
-				var totalPPVSum = 0;
+				var totalPPVSum_lcl = 0;
+				var totalPPVSum_grp = 0;
 				// Validate the records with table model to confirm reason codes are saved.
 				for (var i = 0; i < selCols.length; i++) {
 					var selIndex = _oDetailTable.getContextByIndex(selCols[i]).sPath.split("/")[2];
 					if (tableData[selIndex].Status.indexOf("S") === 0 || tableData[selIndex].Status.indexOf("RS") === 0 || tableData[selIndex].Status.indexOf("N") === 0 || tableData[selIndex].Reasoncode === "") {
+							informationMessage(_oResourceBundle.getText("POSTING_VALIDATION_FAIL"));
 							return false;
 					}
+					totalPPVSum_lcl+=tableData[selIndex].TOTAL_LCL;
+					totalPPVSum_grp+=tableData[selIndex].TOTAL_GRP;
+				}
+				if(totalPPVSum_lcl === 0 & totalPPVSum_lcl === 0 ){
+					informationMessage(_oResourceBundle.getText("ZEROPPV_PUBLISH_MSG"));
+					return false;
 				}
 				return true;
 			} catch (e) {
@@ -1531,7 +1548,7 @@ var removeBatchCommentFlag = false;
 	*/
 	function groupSortBugFix(){
 			//start
-	try{		
+	try{/*		
 		  if(_oDetailTable.getContextByIndex(0).groupHeader!==undefined){
 		  	groupModification = true;
 		  	var middleItem = Math.floor(_oDetailTable.getBinding().aIndices.length/2);
@@ -1544,7 +1561,6 @@ var removeBatchCommentFlag = false;
 				_oDetailTable.getBinding().aIndices[0]=0;
 				_oDetailTable.getBinding().aIndices[1]=1;
 				_oDetailTable.getBinding().aIndices[middleItem]=middleItem;
-				
 			 }else if((_oDetailTable.getBinding().aIndices[1] === lastItem )&& _oDetailTable.getBinding().aIndices[2] === lastItem-2 &&(_oDetailTable.getBinding().aIndices[middleItem] === (lastItem-1))){
 			    var temp = (_oDetailTable.getBinding().aIndices[1] >_oDetailTable.getBinding().aIndices[0])?_oDetailTable.getBinding().aIndices[0]:_oDetailTable.getBinding().aIndices[1] ;
 			    _oDetailTable.getContextByIndex(0).oContext.sPath ="/tableData/"+lastItem;
@@ -1556,6 +1572,7 @@ var removeBatchCommentFlag = false;
 			 }
 			 _oDetailTableModel.refresh();
 			} 
+			*/
 	}catch(e){handleException(e);}
 	} 
 	/** Function : additionalReset
@@ -1598,6 +1615,7 @@ var removeBatchCommentFlag = false;
 				}
 		}else{
 			if(_oDetailTable.getGroupBy()!=null){
+				busyDialog.open();
 				_refreshTable();
 			}
 		}
@@ -1609,11 +1627,14 @@ var removeBatchCommentFlag = false;
 						onAfterRendering: function() {
 							if(	_refreshNeed){
 								_refreshGroupedTableUpdate();
-								_oDetailTable._scrollNext();
-							//	_oDetailTable._scrollPageUp();
+								_dtlView.invalidate();
 							}
 						}});
-						_oDetailTable.refreshRows();
+				//to refresh gouped entry after save
+				setTimeout(function(){
+					_dtlView.invalidate();
+					busyDialog.close();
+				}, 2000);
 	}
 	//restore the selection and group
 	function _refreshGroupedTableUpdate(){
