@@ -815,7 +815,8 @@ sap.ui.define([
 				var selRow = oEvent.oSource.oParent.getBindingContext().sPath.split("/", 3)[2];
 			//	if(isValidForCommentAssignment(selRow)){
 					busyDialog.open();
-					
+					//To destory previous dialog elements id before new Dialog
+					destroyDuplicateId();
 					var selRecord = _oDetailTableModel.oData.tableData[selRow];
 					oDetailMultiDialog = sap.ui.xmlfragment("com.jabil.fi.fragment.Comment", this);
 					oDetailMultiDialog.setBusy(true);

@@ -1656,7 +1656,15 @@ var removeBatchCommentFlag = false;
 		_oDetailTableModel.refresh();
 		busyDialog.close();	
 	}
-	
+	function destroyDuplicateId(){
+		try{
+			(sap.ui.getCore().byId("isResetComment")!=undefined)?sap.ui.getCore().byId("isResetComment").destroy():"";
+			(sap.ui.getCore().byId("myCommentid")!=undefined)?sap.ui.getCore().byId("myCommentid").destroy():"";
+			(sap.ui.getCore().byId("apIssueGrp")!=undefined)?sap.ui.getCore().byId("apIssueGrp").destroy():"";
+			(sap.ui.getCore().byId("isResetComment-label")!=undefined)?sap.ui.getCore().byId("isResetComment-label").destroy():"";
+		}catch(e){
+		}
+	}
 	function _ModelFormatChecker(){
 		try{
 			$.each(_oDetailTableModel.getData().tableData, function(idx,item){	
