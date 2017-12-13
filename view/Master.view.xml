@@ -1,0 +1,393 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" 
+	xmlns:l="sap.ui.layout" xmlns="sap.m" xmlns:table="sap.ui.table"
+	controllerName="com.jabil.fi.view.Master" xmlns:html="http://www.w3.org/1999/xhtml">
+
+	<Page id="masterPage" class="appPage">
+		<content>
+			<!-- <Carousel id="mainCarousel" pageChanged=".pageChanged">
+				<pages> -->
+					<VBox class="titleBox">
+						<items>
+							<Title text="{i18n>masterTitle}" titleStyle="H2"/>
+							<Title text="{i18n>masterSubTitle}" titleStyle="H5"/>
+						</items>
+					</VBox>
+					<Panel id="reasonCodePage" class="dashboard-section">
+						<customData>
+							<core:CustomData
+									key="chartId"
+									value="heatMap" />
+						</customData>
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="{i18n>heatMapTitle}"/>
+								<ToolbarSpacer />
+								<Label text="{i18n>totalPPV}" class="totalPPVLableStyle" />
+								<Text text="" id="totalPPV" class="totalPPVStyle" />
+								<Button icon="sap-icon://synchronize" press=".onSubmit" />
+								<Button	type="Emphasized" tooltip="{i18n>DownloadTooltip}" text="" icon="sap-icon://download" press="onDataExport" />
+								
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<html:div id='heatMap' class='heatMapStyle'></html:div>
+						</content>
+					</Panel>
+					<l:Splitter class="gridLayout">
+						<Table id="ppvCategory"
+							inset="false"
+							items="{
+								path: '/d/results/0/NavSelToCat/results/'
+							}" 
+							class="dashboard-section ppv-section"
+							mode="SingleSelectMaster"
+							selectionChange=".onRowClick">
+							<customData>
+							<core:CustomData
+									key="tableId"
+									value="ppvCategory" />
+							</customData>
+							<headerToolbar>
+								<Toolbar height="3rem">
+									<Title text="{i18n>ppvCategoryTitle}"/>
+									<ToolbarSpacer />
+									<Button icon="sap-icon://synchronize" press=".onSubmit" />
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="catId"
+									width="60%">
+									<Text text="{i18n>Category}" class="header category-header"/>
+								</Column>
+								<Column id="catPpvLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="catCurrLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								<Column id="catPpvGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="catCurrGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectIdentifier
+												text="{Blart}" class="statusStylePPV"/>
+										<Text text="{AmtLc}" />
+										<Text text="{CurrLc}" />
+										<Text text="{AmtGrp}" /> 
+										<Text text="{CurrGrp}" /> 
+									</cells>
+								</ColumnListItem>
+							</items>
+							<layoutData><l:SplitterLayoutData size="48%" resizable="false"/></layoutData>
+						</Table>
+						<Table id="ppvFavorable"
+							inset="false"
+							items="{
+								path: '/d/results/0/NavSelToFav/results/'
+							}"
+							class="dashboard-section fav-section"
+							mode="SingleSelectMaster"
+							selectionChange=".onRowClick">
+							<customData>
+								<core:CustomData
+									key="tableId"
+									value="ppvFavorable" />
+							</customData>
+							<headerToolbar>
+								<Toolbar height="3rem">
+									<Title text="{i18n>ppvFavorableTitle}"/>
+									<ToolbarSpacer />
+									<Button icon="sap-icon://synchronize" press=".onSubmit" />
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="favId"
+									width="60%">
+									<Text text="{i18n>Material}" class="header material-header" />
+								</Column>
+								<Column id="favPpvLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="favCurrLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								<Column id="favPpvGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="favCurrGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectStatus
+												text="{Matnr}" state="{path: 'Assigned',formatter: '.statusFormater'}" class="statusStylePPV"/>
+										<Label text="{AmtLc}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{CurrLc}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{AmtGrp}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{CurrGrp}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+									<!--	<Text text="{AmtLc}" />
+										<Text text="{CurrLc}" />
+										<Text text="{AmtGrp}" />
+										<Text text="{CurrGrp}" /> -->
+									</cells>
+								</ColumnListItem>
+							</items>
+							<layoutData><l:SplitterLayoutData size="94%" resizable="false"/></layoutData>
+						</Table>
+					</l:Splitter>
+					<l:Splitter class="gridLayout">
+						<Table id="ppvReasonCode"
+							inset="false"
+							items="{
+								path: '/d/results/0/NavSelToRc/results/'
+							}"
+							class="dashboard-section rc-section"
+							mode="SingleSelectMaster"
+							selectionChange=".onRowClick">
+							<customData>
+								<core:CustomData
+									key="tableId"
+									value="ppvReasonCode" />
+							</customData>
+							<headerToolbar>
+								<Toolbar height="3rem">
+									<Title text="{i18n>ppvRcTitle}"/>
+									<ToolbarSpacer />
+									<Button icon="sap-icon://synchronize" press=".onSubmit" />
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="rcId"
+									width="60%">
+									<Text text="{i18n>ReasonCode}" class="header rc-header"/>
+								</Column>
+								<Column id="rcPpvLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="rcCurrLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								<Column id="rcPpvGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="rcCurrGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>								
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectStatus 
+												text="{Descr}" state="{path: 'POSTED',formatter: '.statusFormater'}" class="statusStylePPV"/>
+										<Label text="{AmtLc}" design="{path: 'POSTED',formatter: 'formatterTotal'}" />
+										<Label text="{CurrLc}" design="{path: 'POSTED',formatter: 'formatterTotal'}" />
+										<Label text="{AmtGrp}" design="{path: 'POSTED',formatter: 'formatterTotal'}" />
+										<Label text="{CurrGrp}" design="{path: 'POSTED',formatter: 'formatterTotal'}" />
+									<!--	<Text text="{AmtLc}" />
+										<Text text="{CurrLc}" />
+										<Text text="{AmtGrp}" />
+										<Text text="{CurrGrp}" />-->
+									</cells>
+								</ColumnListItem> 
+							</items>
+							<layoutData><l:SplitterLayoutData size="48%" resizable="false"/></layoutData>
+						</Table>
+						<Table id="ppvUnfavorable"
+							inset="false"
+							items="{
+								path: '/d/results/0/NavSelToUnFav/results/'
+							}"
+							class="dashboard-section unfav-section"
+							mode="SingleSelectMaster"
+							selectionChange=".onRowClick">
+							<customData>
+								<core:CustomData
+									key="tableId"
+									value="ppvUnfavorable" />
+							</customData>
+							<headerToolbar>
+								<Toolbar height="3rem">
+									<Title text="{i18n>ppvUnfavorableTitle}" />
+									<ToolbarSpacer />
+									<Button icon="sap-icon://synchronize" press=".onSubmit" />
+								</Toolbar>
+							</headerToolbar>
+							<columns>
+								<Column id="unfavId"
+									width="60%">
+									<Text text="{i18n>Material}"  class="header material-header" />
+								</Column>
+								<Column id="unfavPpvLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="unfavCurrLc"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>
+								<Column id="unfavPpvGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>PPV}" />
+								</Column>
+								<Column id="unfavCurrGrp"
+									minScreenWidth="Tablet"
+									demandPopin="true"
+									hAlign="Right">
+									<Text text="{i18n>Currency}" />
+								</Column>								
+							</columns>
+							<items>
+								<ColumnListItem>
+									<cells>
+										<ObjectStatus 
+												text="{Matnr}" state="{path: 'Assigned',formatter: '.statusFormater'}" class="statusStylePPV"/>
+										<Label text="{AmtLc}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{CurrLc}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{AmtGrp}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<Label text="{CurrGrp}" design="{path: 'Assigned',formatter: 'formatterTotal'}" />
+										<!--
+										<Text text="{AmtLc}" />
+										<Text text="{CurrLc}" />
+										<Text text="{AmtGrp}" />
+										<Text text="{CurrGrp}" /> -->
+									</cells>
+								</ColumnListItem>
+							</items>
+							<layoutData><l:SplitterLayoutData size="94%" resizable="false"/></layoutData>
+						</Table>
+					</l:Splitter>
+					<!-- <Panel id="ppvCategoryPage" class="dashboard-section">
+						<customData>
+							<core:CustomData
+									key="chartId"
+									value="ppvCategory" />
+						</customData>
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="{i18n>ppvCategoryTitle}"/>
+								<ToolbarSpacer />
+								<Button icon="sap-icon://synchronize" />
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<html:div id='ppvCategory'></html:div>
+							
+						</content>
+					</Panel>
+					<Panel id="ppvByRc" class="dashboard-section">
+						<customData>
+							<core:CustomData
+									key="chartId"
+									value="ppvReasonCode" />
+						</customData>
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="{i18n>ppvRcTitle}"/>
+								<ToolbarSpacer />
+								<Button icon="sap-icon://synchronize" />
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<html:div id='ppvReasonCode'></html:div>
+						</content>
+					</Panel>
+					<Panel id="ppvFavorablePage" class="dashboard-section">
+						<customData>
+							<core:CustomData
+									key="chartId"
+									value="ppvFavorable" />
+						</customData>
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="{i18n>ppvFavorableTitle}"/>
+								<ToolbarSpacer />
+								<Button icon="sap-icon://synchronize" />
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<html:div id='ppvFavorable'></html:div>
+						</content>
+					</Panel>
+					<Panel id="ppvUnfavorablePage" class="dashboard-section">
+						<customData>
+							<core:CustomData
+									key="chartId"
+									value="ppvUnfavorable" />
+						</customData>
+						<headerToolbar>
+							<Toolbar height="3rem">
+								<Title text="{i18n>ppvUnfavorableTitle}"/>
+								<ToolbarSpacer />
+								<Button icon="sap-icon://synchronize" />
+							</Toolbar>
+						</headerToolbar>
+						<content>
+							<html:div id='ppvUnfavorable'></html:div>
+						</content>
+					</Panel>
+				</pages>
+			</Carousel> -->
+		</content>
+		<footer>
+			<ToolBar class="appFooter">
+			<content>
+				<html:a class="font-w600" href="http://jabil.com/" target="_blank">Jabil</html:a>
+				<html:span> © </html:span>
+				<html:span class="js-year-copy">2015</html:span>
+			</content>
+			</ToolBar>
+		</footer>
+	</Page>
+</mvc:View>

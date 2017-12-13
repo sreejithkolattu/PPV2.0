@@ -1,0 +1,32 @@
+
+<mvc:View
+	controllerName="com.jabil.fi.view.Main"
+	xmlns:l="sap.ui.layout"
+	xmlns:u="sap.ui.unified"
+	xmlns:mvc="sap.ui.core.mvc"
+	xmlns:core="sap.ui.core"
+	xmlns="sap.m"
+		displayBlock="true" height="100%" id="ppvApp">
+		<u:Shell
+			id="fioriContent"
+			icon="{/logo}">
+			<u:header>
+				<ToolBar class="appHeader">
+					<content>
+						<FlexBox width="100%" height="100%" justifyContent="SpaceBetween" alignItems="Stretch">
+							<items>
+							<core:Icon src="sap-icon://home" class="home" press=".goHome"/>
+							<core:Icon src="sap-icon://grid" class="dialogView" press=".showDialogFilter"/>
+							<core:Fragment fragmentName="com.jabil.fi.fragment.MainFilter" type="XML" />
+							<Button id="submit" text="Submit" press=".onFilterSubmit"/>
+							<Switch id="currSwitch" state="false" customTextOn="Group" customTextOff="Local" class="currSwitchStyle" change=".onCurrencySwitch"  />
+							<Image	id="envImg"	densityAware="false" />
+							<Button id="userMenu" text="{/userName}" icon="sap-icon://person-placeholder" press=".onUserMenuPress"/>
+							</items>
+						</FlexBox>
+					</content>
+				</ToolBar>
+			</u:header>
+			
+		</u:Shell>
+</mvc:View>

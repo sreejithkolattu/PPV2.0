@@ -1,0 +1,64 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<Label  text="Company" visible="false"/>
+	<ComboBox id="selectCompany" change=".handleCCSelection" 
+		items="{
+			path: '/d/results',
+			sorter: { path: 'Bukrs' }
+		}">
+		<core:Item key="{Bukrs}" text="{Bukrs}-{Butxt}" />
+	</ComboBox>
+	<Label  text="Plant" visible="false"/>
+	<ComboBox id="selectPlant" change=".handlePlantSelection" 
+		items="{
+			path: '/d/results',
+			sorter: { path: 'Werks' }
+		}">
+		<core:Item key="{Werks}" text="{Werks}-{Name1}" />
+	</ComboBox>
+	<Label text="Profit Center" visible="false"/>
+	<!-- <Select id="selectPC"
+		items="{
+			path: '/ProfitCenters',
+			sorter: { path: 'id' }
+		}">
+		<core:Item key="{id}" text="{id}-{desc}" /> 
+	</Select> -->
+	<Button id="selectPC" icon="sap-icon://slim-arrow-down"
+	iconFirst ="false" press=".showProfitCenters"
+	text="Profit Center" class="pcButton">
+	</Button>
+	<Label text="Period (Calendar Year)" visible="false"/>
+	<Select id="selectPeriod" change=".setDateRange"
+		items="{
+			path: '/'
+		}">
+		<core:Item key="{key}" text="{period}" />
+	</Select>
+	<Label text="Data Range" visible="false"/>
+	<HBox class="periodBox">
+		<items>
+			<DatePicker
+			width="8rem"
+			id="fromDate"
+			placeholder="From"
+			class="sapUiSmallMarginBottom"
+			change=".handleFromDateChange"
+			displayFormat="MM/dd/yyyy"/>
+			<core:Icon src="sap-icon://slim-arrow-right" class="dateDivider noLeftSpace"/>
+			<DatePicker
+			width="8rem"
+			id="toDate"
+			placeholder="To"
+			class="sapUiSmallMarginBottom noLeftSpace"
+			change=".handleToDateChange"
+			displayFormat="MM/dd/yyyy"/>
+		</items>
+	</HBox>
+<!--  	<Label text="Currency" visible="false"/>
+	<Select id="currency">
+		<core:Item key="1" text="Local" />
+		<core:Item key="2" text="Group" />
+	</Select>-->
+</core:FragmentDefinition>

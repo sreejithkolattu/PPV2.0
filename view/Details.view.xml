@@ -1,0 +1,371 @@
+<core:View 
+xmlns:core="sap.ui.core" 
+xmlns:u="sap.ui.unified"
+xmlns="sap.m" 
+xmlns:ui="sap.ca.ui"
+xmlns:f="sap.ui.layout.form"
+xmlns:l="sap.ui.layout" 
+xmlns:model="sap.ui.model"
+xmlns:tbl="sap.ui.table"
+xmlns:cmn="sap.ui.commons"
+controllerName="com.jabil.fi.view.Details">
+	<Page id="DetailsPage"  showNavButton="false" navButtonPress="onNavBack" class="appPage detailsPage">
+		<content>		
+				<VBox class="titleBox">
+						<items>
+							<Title text="{i18n>masterTitle}" titleStyle="H2"/>
+							<Title text="{i18n>detailTitle}" titleStyle="H5"/>
+						</items>
+					</VBox>
+		<Panel id="reasonCodeDetailPage" class="dashboard-section">
+			<core:ExtensionPoint name="extensionAfterObjectHeader" />
+			<OverflowToolbar id="otbSubheader2">
+					<Label text="{i18n>ReasonCode}" visible="true"  />
+					<Select id="selectReasonCode" 
+						items="{path: '/',
+								sorter: { path: 'Description' }}"  
+								selectedKey="" change="onReasoncodeChange">
+						<core:Item key="{Reasoncode}" text="{Description}" class="rcTableCol" />
+					</Select>
+					<Button id="batchCommentText" type="Default" text="" icon="sap-icon://comment" tooltip="{i18n>Comments}" press="onBatchComment"/>					
+					<Button text="{i18n>ApplyReasonCode}" tooltip="{i18n>ApplyReasonCodeTooltip}" type="Emphasized" press="onApplyReasonCode"/>
+					<Button id="showGroupInfo" icon="sap-icon://multi-select" type="Emphasized" tooltip="{i18n>GroupInfoTooltip}" text="" visible="false" press="onGroupShowPress"/>
+                <ToolbarSpacer />
+                		<Switch id="fxSwitch" state="false" customTextOn="{i18n>FxTextOn}" customTextOff="{i18n>FxTextOff}" class="currSwitchStyle" change=".onFxShowSwitch"  visible="false"/>
+						<SearchField id="mySearchField" minWidth="50px" maxWidth="100px" liveChange="onFilter">
+						<layoutData><OverflowToolbarLayoutData minWidth="200px" maxWidth="300px" shrinkable="true"/></layoutData>
+						</SearchField>
+					    <Button type="Emphasized" tooltip="{i18n>ResetTooltip}" text="{i18n>Reset}"  press="onReset"/> 
+					    <Button id="revenuePostBtn" type="Emphasized" tooltip="{i18n>RevenueTooltip}" text="{i18n>RevenuePost}" visible="false"  press="onRevenuePost"/>
+						<Button type="Emphasized" tooltip="{i18n>SaveTooltip}" text="{i18n>Save}" icon="sap-icon://save" press="onSave"/>
+                		<Button type="Reject" tooltip="{i18n>PostTooltip}" text="{i18n>PostText}" icon="sap-icon://accept" press="onPublishToSap"/>						
+						<Button type="Emphasized" tooltip="{i18n>RefreshTooltip}" icon="sap-icon://synchronize" press=".onRefresh" />
+						<Button type="Emphasized" tooltip="{i18n>PersonalizationTooltip}" text="" icon="sap-icon://drop-down-list" press="onPersonalizationDialogPress" /> 
+						<Button	type="Emphasized" tooltip="{i18n>DownloadTooltip}" text="" icon="sap-icon://download" press="onDataExport" /> 
+            </OverflowToolbar>	
+
+			<tbl:Table id="detailTable"
+				rows="{/tableData}"
+				selectionMode="MultiToggle"
+				rowSelectionChange="onrowSelection"
+				fixedColumnCount="3"
+				enableColumnReordering="true"
+				enableGrouping = "true"
+				columnMove= "onColumnMove"
+				visibleRowCount="12" 
+				group="onGroupPress" 
+				showNoData="true"
+				filter="onFilterPress"
+				sort="onSortPress" 
+				>
+				<tbl:customData>
+					<core:CustomData
+							key="tableId"
+							value="detailTable" />
+					</tbl:customData>
+					<tbl:columns>
+					<tbl:Column id="Matnr" width="10rem"  sortProperty="Matnr" filterProperty="Matnr" tooltip="{i18n>Matnr}" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Matnr}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Matnr}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Mtxt" width="6rem" sortProperty="Mtxt" filterProperty="Mtxt" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>Mtxt}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Mtxt}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Mtart" width="6rem" sortProperty="Mtart" filterProperty="Mtart" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>Mtart}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Mtart}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="EXTMATLGRP" width="6rem" sortProperty="EXTMATLGRP" filterProperty="EXTMATLGRP" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>EXTMATLGRP}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{EXTMATLGRP}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="PROCTYP" width="6rem" sortProperty="PROCTYP" filterProperty="PROCTYP" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>PROCTYP}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{PROCTYP}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Belnr" width="8rem" sortProperty="Belnr" filterProperty="Belnr" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Belnr}"/>
+						<tbl:template>
+							<cmn:TextView text="{Belnr}" enabled="{	path: 'Status',formatter: '.statusEnableItem'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Blart" width="8rem" sortProperty="Blart" filterProperty="Blart" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Blart}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Blart}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="UMMAT" width="8rem" sortProperty="UMMAT" filterProperty="UMMAT" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>UMMAT}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{UMMAT}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="STPRS_UM_LCL" width="6rem" sortProperty="STPRS_UM_LCL" filterProperty="STPRS_UM_LCL" filterType="sap.ui.model.type.Float">
+					<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>STPRS_UM_LCL}"/>				
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'STPRS_UM_LCL',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Bukrs" width="4rem" sortProperty="Bukrs" filterProperty="Bukrs" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Bukrs}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Bukrs}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Prctr" width="8rem" sortProperty="Prctr" filterProperty="Prctr" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Prctr}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Prctr}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Lifnr" width="6rem" sortProperty="Lifnr" filterProperty="Lifnr" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Lifnr}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Lifnr}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Name1" width="11rem" sortProperty="Name1" filterProperty="Name1" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Name1}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Name1}"/>
+						</tbl:template>
+					</tbl:Column>					
+					<tbl:Column id="Buzei" width="4rem" sortProperty="Buzei" filterProperty="Buzei" filterType="sap.ui.model.type.String" >
+						<Label text="{i18n>Buzei}"/>
+						<tbl:template>
+							<cmn:TextView text="{Buzei}" enabled="{	path: 'Status',formatter: '.statusEnableItem'}"/>
+						</tbl:template>
+					</tbl:Column>		
+					<tbl:Column id="Gjahr" width="5rem" sortProperty="Gjahr" filterProperty="Gjahr" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Gjahr}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Gjahr}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Monat" width="3rem" sortProperty="Monat" filterProperty="Monat" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>Monat}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Monat}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Reasoncode" width="8rem" sortProperty="Reasoncode" filterProperty="Reasoncode" filterType="sap.ui.model.type.String" >
+						<Label text="{i18n>Reasoncode}" />
+						<tbl:template>
+						<ObjectIdentifier id="resultStatus1" title="{path: 'Reasoncode',formatter: '.reasonCodeSel'}" titleActive="{	path: 'Status',formatter: '.statusEnableItem'}"  class="rcTableCol" titlePress="onReasonCodePress"/>
+						</tbl:template>
+					</tbl:Column>  				
+					 <tbl:Column id="Comments" width="4rem" >
+						<Label text="{i18n>Comments}"/>
+						<tbl:template>
+						 <Button class="cmdIcon" tooltip="{	path: 'Comments',formatter: '.tooltipFormaterComment'}" icon="sap-icon://comment" type="{	path: 'Comments',formatter: '.statusFormaterComment'}" press="onCommentPress" color="#666666"/>							
+						</tbl:template>			
+					</tbl:Column>
+					<tbl:Column id="Assigned_By" width="6rem" sortProperty="Assigned_By" filterProperty="Assigned_By" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>Assigned_By}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Assigned_By}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Werks" width="4rem" sortProperty="Werks" filterProperty="Werks" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Werks}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Werks}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Ekgrp" width="8rem" sortProperty="Ekgrp" filterProperty="Ekgrp" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Ekgrp}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Ekgrp}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="PURGRPNAME" width="6rem" sortProperty="PURGRPNAME" filterProperty="PURGRPNAME" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>PURGRPNAME}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{PURGRPNAME}" />
+						</tbl:template>
+					</tbl:Column>
+					<!--tbl:Column id="budat" width="6rem" sortProperty="budat" filterProperty="budat" filterType="sap.ui.model.type.Date"-->
+					<tbl:Column id="budat" width="6rem" sortProperty="TmpBudat" filterProperty="TmpBudat" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>budat}"/>
+						<tbl:template>
+						 <!--cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path:'budat',formatter: '.dateFormater'}" /--> 
+						 <cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path:'TmpBudat'}" /> 
+						</tbl:template>
+					</tbl:Column>
+					<!--tbl:Column id="GR_DATE" width="6rem" sortProperty="GR_DATE" filterProperty="GR_DATE" filterType="sap.ui.model.type.Date"-->
+					<tbl:Column id="GR_DATE" width="6rem" sortProperty="GR_DATE" filterProperty="TmpGR_DATE" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>GR_DATE}"/>
+						<tbl:template>
+						 <!--cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path:'GR_DATE',formatter: '.dateFormater'}" /--> 
+						  <cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path:'TmpGR_DATE'}" />
+						 
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Ebeln" width="6rem" sortProperty="Ebeln" filterProperty="Ebeln" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Ebeln}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Ebeln}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="PSTYP" width="6rem" sortProperty="PSTYP" filterProperty="PSTYP" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>PSTYP}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{PSTYP}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Ebelp" width="6rem" sortProperty="Ebelp" filterProperty="Ebelp" filterType="sap.ui.model.type.String">
+						<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Ebelp}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{Ebelp}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Menge" width="7rem" sortProperty="Menge" filterProperty="Menge" filterType="sap.ui.model.type.Float">
+					    <Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>Menge}"/>				
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path:'Menge',formatter: '.numaricFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="PO_WAERS" width="6rem" sortProperty="PO_WAERS" filterProperty="PO_WAERS" filterType="sap.ui.model.type.String">
+					<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>PO_WAERS}"/>				
+						<tbl:template>
+							<cmn:TextView text="{PO_WAERS}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="NETPR" width="6rem" sortProperty="NETPR" filterProperty="NETPR" filterType="sap.ui.model.type.Float">
+					<Label text="{i18n>NETPR}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'NETPR',formatter: '.amountFormat'}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="PO_PRICE_UNIT" width="6rem" sortProperty="PO_PRICE_UNIT" filterProperty="PO_PRICE_UNIT" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>PO_PRICE_UNIT}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'PO_PRICE_UNIT',formatter: '.numaricFormat'}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="INF_REC_PRC" width="6rem" sortProperty="INF_REC_PRC" filterProperty="INF_REC_PRC" filterType="sap.ui.model.type.Float">
+					<Label text="{i18n>INF_REC_PRC}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'INF_REC_PRC',formatter: '.amountFormat'}" />
+						</tbl:template>
+					</tbl:Column>
+						<tbl:Column id="INF_PRC_UNIT" width="6rem" sortProperty="INF_PRC_UNIT" filterProperty="INF_PRC_UNIT" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>INF_PRC_UNIT}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'INF_PRC_UNIT',formatter: '.numaricFormat'}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="INF_WAERS" width="6rem" sortProperty="INF_WAERS" filterProperty="INF_WAERS" filterType="sap.ui.model.type.String">
+					<Label text="{i18n>INF_WAERS}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{INF_WAERS}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="STPRS_LCL" width="6rem" sortProperty="STPRS_LCL" filterProperty="STPRS_LCL" filterType="sap.ui.model.type.Float">
+					<Label enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{i18n>STPRS_LCL}"/>				
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'STPRS_LCL',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Zkprs" width="6rem" sortProperty="Zkprs" filterProperty="Zkprs" filterType="sap.ui.model.type.Float">
+					<Label text="{i18n>Zkprs}"/>				
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'Zkprs',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Peinh" width="6rem" sortProperty="Peinh" filterProperty="Peinh" filterType="sap.ui.model.type.Float">
+						<Label text="{i18n>Peinh}"/>
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'Peinh',formatter: '.numaricFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="ZPLP2" width="6rem" sortProperty="ZPLP2" filterProperty="ZPLP2" filterType="sap.ui.model.type.Float">
+					<Label text="{i18n>ZPLP2}"/>				
+						<tbl:template>
+							<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'ZPLP2',formatter: '.amountFormat'}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="INV_PRICE" width="6rem" sortProperty="INV_PRICE" filterProperty="INV_PRICE" filterType="sap.ui.model.type.Float">
+						<Label text="{i18n>INV_PRICE}"/>				
+							<tbl:template>
+								<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'INV_PRICE',formatter: '.amountFiveDecimalFormat'}"/>
+							</tbl:template>
+						</tbl:Column> 
+					<tbl:Column id="Mr22Lcl" width="6rem" sortProperty="Mr22Lcl" filterProperty="Mr22Lcl" filterType="sap.ui.model.type.Float">
+						<ObjectIdentifier id="sumMR22" title="{i18n>Mr22Lcl}" text="{/TotalLcl/sumMR22}" titleActive="false" />
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'Mr22Lcl',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>	
+					<tbl:Column id="WRBTR" width="6rem" sortProperty="WRBTR" filterProperty="WRBTR" filterType="sap.ui.model.type.Float">
+						<ObjectIdentifier id="sumWrbtr" title="{i18n>Wrbtr}" text="{/TotalLcl/sumAmount}" titleActive="false" />	
+						<tbl:template>
+								<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'WRBTR',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column> 
+					<tbl:Column id="TOTAL_LCL" width="8rem" sortProperty="TOTAL_LCL" filterProperty="TOTAL_LCL" filterType="sap.ui.model.type.Float"  visible="true">
+						<ObjectIdentifier id="sumTotalPPV" title="{i18n>TotalLcl}" text="{/TotalLcl/sumTotalPPV}" titleActive="false"/>	
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'TOTAL_LCL',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="DMBE3" width="6rem" sortProperty="DMBE3" filterProperty="DMBE3" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>DMBE3}"/>				
+							<tbl:template>
+								<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{DMBE3}" />
+							</tbl:template>
+						</tbl:Column>
+						
+					<tbl:Column id="waers" width="6rem" sortProperty="waers" filterProperty="waers" filterType="sap.ui.model.type.String">
+						<Label text="{i18n>waers}"/>				
+							<tbl:template>
+								<cmn:TextView enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{waers}" />
+							</tbl:template>
+						</tbl:Column>
+
+
+					<tbl:Column id="Fxval" width="8rem" sortProperty="Fxval" filterProperty="Fxval" filterType="sap.ui.model.type.Float"  visible="false">
+						<ObjectIdentifier id="sumFxval" title="{i18n>TotalFxval}" text="{/TotalLcl/sumTotalFxval}" titleActive="false"/>	
+						<tbl:template>
+							<cmn:TextView  enabled="{	path: 'Status',formatter: '.statusEnableItem'}" text="{path: 'Fxval',formatter: '.amountFormat'}"/>
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Status" width="6rem" sortProperty="Status" filterProperty="Status" filterType="sap.ui.model.type.String" >
+						<Label text="{i18n>Status}"/>
+						<tbl:template>
+							<ObjectStatus	text="{	path: 'Status',formatter: 'revenueStatusFormatText'}" icon="{path: 'Status',formatter: '.statusFormaterIcon'}" state="{path: 'Status',formatter: '.statusFormaterColor'}" />
+						</tbl:template>
+					</tbl:Column>
+					<tbl:Column id="Results" width="4rem" >
+						<Label text="{i18n>Results}"/>
+						<tbl:template>
+						 <ObjectIdentifier id="resultStatus" title="{path: 'Status',formatter: '.statusFormater'}" titleActive="true" titlePress="onResultsetPress"/>	
+						</tbl:template>			
+						</tbl:Column> 
+				</tbl:columns>	
+				
+				<tbl:footer>
+					<Toolbar>
+					<Label text=""/>
+					</Toolbar>
+				</tbl:footer>	
+			</tbl:Table>
+			<core:ExtensionPoint name="extensionAfterNavigationTable" />
+			</Panel>
+		</content>
+		<footer>
+		</footer>		
+	</Page>
+</core:View>

@@ -1,0 +1,22 @@
+<core:FragmentDefinition
+	xmlns="sap.m"
+	xmlns:core="sap.ui.core">
+	<SelectDialog class="pcSelectDialog"
+		title="Select Profit Center"
+		liveChange="handleSearch"
+		search="handleSearch"
+		confirm=".handleConfirm"
+		close="handleClose"
+		multiSelect ="true"
+		rememberSelections = "true"
+		items="{
+			path: '/d/results' 
+		}" >
+		<StandardListItem
+			name="{Prctr}"
+			title="{Prctr}-{Ktext}"
+			iconDensityAware="false"
+			iconInset="false"
+			type="Active" />
+	</SelectDialog>
+</core:FragmentDefinition>

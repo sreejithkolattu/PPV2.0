@@ -1,0 +1,21 @@
+{
+	"tableData": [
+	],	
+	"ReasonCodeDD": [
+	],
+	"unSavedComment":"",
+	"unSavedReasonCode":[],
+	"TotalLcl":[ 
+	{	
+		"sumTotalPPV" : "0",
+		"sumAmount" : "0"
+	}
+	],
+	"TotalGrp":[ 
+	{
+		"sumTotalPPV" : "0"
+	}
+	],
+	"batchComment":"",
+	"grpHeader":[]
+}
